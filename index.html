@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bonaire Motorcycles — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1b23; --ink-2:#12262f; --paper:#f4f5f6; --card:#fff; --line:#e3e6e8;
+  --text:#14212a; --muted:#5b6a73;
+  --yellow:#ffe100; --yellow-ink:#111; --blue:#1aa3e8; --green:#7cc242;
+  --r:14px; --max:1200px;
+  --display:"Archivo Black","Archivo",system-ui,sans-serif;
+  --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;text-transform:uppercase;font-size:14px;letter-spacing:.02em;padding:14px 22px;border-radius:8px;border:2px solid transparent;cursor:pointer;transition:transform .15s,background .15s,border-color .15s;font-family:var(--sans)}
+.btn:hover{transform:translateY(-1px)}
+.btn-y{color:var(--yellow-ink);
+  background:rgba(255,222,0,.86);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);
+  border:1px solid rgba(255,255,255,.45);
+  box-shadow:0 8px 24px rgba(255,200,0,.2),0 2px 6px rgba(11,27,35,.15)}
+.btn-y:hover{background:rgba(255,228,30,.94)}
+.btn-ghost{border-color:rgba(255,255,255,.45);color:#fff}
+.btn-ghost:hover{border-color:#fff}
+.btn-line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-line:hover{background:var(--ink);color:#fff}
+.arrow::after{content:"→";font-size:17px;line-height:1}
+.link{display:inline-block;font-weight:800;text-transform:uppercase;font-size:14px;position:relative;padding-bottom:8px}
+.link::after{content:"";position:absolute;left:0;bottom:0;width:38px;height:3px;background:var(--blue);transition:width .2s}
+.link:hover::after{width:100%}
+.link.g::after{background:var(--green)}
+.wa-ico{width:18px;height:18px;flex:none}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(11,27,35,.92);backdrop-filter:blur(10px);color:#fff;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
+.nav ul{list-style:none;display:flex;gap:34px;font-weight:700;font-size:14px;text-transform:uppercase}
+.nav ul a{padding:6px 0;border-bottom:3px solid transparent}
+.nav ul a:hover,.nav ul a.on{border-color:var(--yellow)}
+.nav .right{display:flex;justify-content:flex-end;align-items:center;gap:34px}
+.logo{display:flex;align-items:center;gap:10px;line-height:.9}
+.logo .lockup{height:62px;width:auto}
+@media (max-width:560px){.logo .lockup{height:50px}}
+footer .logo .stack{width:150px;height:auto}
+.logo b{display:block;font-family:var(--display);color:var(--yellow);font-size:24px;letter-spacing:.01em}
+.logo span{display:block;font-weight:700;font-size:14px;letter-spacing:.08em}
+.burger{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+
+/* Hero */
+.hero{position:relative;background:var(--ink);color:#fff;overflow:hidden}
+.hero .bg{position:absolute;inset:0 0 0 32%;background:url(img/hero-scooter.jpg) 25% 100%/cover no-repeat}
+.hero .bg::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(11,27,35,.55) 18%,rgba(11,27,35,0) 45%),linear-gradient(0deg,rgba(11,27,35,.5),rgba(11,27,35,0) 30%)}
+.hero .wrap{position:relative;padding-top:96px;padding-bottom:120px}
+.eyebrow{font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:18px}
+.hero h1{font-size:clamp(38px,5vw,68px);max-width:15ch;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.hero p.lead{font-size:20px;max-width:30ch;margin:22px 0 32px;color:#dfe7eb}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+
+/* Quick book bar */
+.quick{position:relative;z-index:5;margin-top:-56px}
+.quick form{background:var(--card);border-radius:var(--r);box-shadow:0 20px 50px rgba(11,27,35,.18);display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:0;overflow:hidden}
+.quick label{display:flex;flex-direction:column;padding:16px 22px;border-right:1px solid var(--line);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.quick select,.quick input{border:0;background:transparent;font:600 16px var(--sans);color:var(--text);margin-top:6px;outline:none;width:100%}
+.quick .btn{border-radius:0;justify-content:center;padding:0 30px}
+
+/* Trust strip */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:34px 0 10px}
+.trust div{display:flex;gap:12px;align-items:flex-start}
+.trust svg{width:34px;height:34px;flex:none;color:var(--ink)}
+.trust b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
+.trust span{font-size:13px;color:var(--muted)}
+
+/* Sections */
+section{padding:84px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(32px,4.4vw,52px)}
+.sec-head p{color:var(--muted);max-width:42ch}
+
+/* Paths */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.path{background:var(--ink);color:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 8px 24px rgba(11,27,35,.18);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.path:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(11,27,35,.32)}
+.path .img{aspect-ratio:16/10;overflow:hidden}
+.path .img img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,center);transition:transform .5s}
+.path:hover .img img{transform:scale(1.04)}
+.path .body{padding:26px 28px 28px;display:flex;flex-direction:column;flex:1}
+.path h3{font-size:38px;margin:0 0 10px;color:#fff}
+.path p{color:#b8c6cd;flex:1}
+.path .price{font-family:var(--display);font-size:22px;color:var(--yellow);margin:14px 0 18px}
+.path .price small{font-family:var(--sans);font-weight:600;font-size:14px;color:#b8c6cd}
+.path .links{display:flex;gap:26px}
+
+/* Tabs / catalogue */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;font:800 13px var(--sans);text-transform:uppercase;letter-spacing:.06em;padding:12px 0;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-1px}
+.tabs button[aria-selected=true]{color:var(--text);border-color:var(--blue)}
+.panel{display:none;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:28px}
+.panel.on{display:grid}
+.item{background:var(--ink);color:#fff;border-radius:var(--r);overflow:hidden;border:0;box-shadow:0 8px 24px rgba(11,27,35,.18);display:flex;flex-direction:column}
+.item img{aspect-ratio:16/9;object-fit:cover;object-position:var(--pos,center);width:100%}
+.item .ico{aspect-ratio:16/9;display:grid;place-items:center;background:#12262f;border-bottom:1px solid rgba(255,255,255,.07);color:var(--yellow)}
+.item .ico svg{width:116px;height:116px}
+.item .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.item h4{font-size:18px;font-weight:800}
+.item .tag{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-radius:4px;background:rgba(26,163,232,.18);color:#7fcdf3;margin-bottom:10px;align-self:flex-start}
+.item .tag.g{background:rgba(124,194,66,.18);color:#a9dd7c}
+.item .amt{font-family:var(--display);font-size:30px;margin:6px 0 2px;color:var(--yellow)}
+.item .amt small{font-family:var(--sans);font-size:15px;font-weight:600;color:#b8c6cd}
+.item ul{list-style:none;font-size:14px;color:#b8c6cd;margin:10px 0 18px;flex:1}
+.item li{padding:5px 0;border-top:1px dashed rgba(255,255,255,.14)}
+.item li:first-child{border-top:0}
+.item .btn{justify-content:center;padding:12px 16px;font-size:13px}
+.item .btn-line{border-color:rgba(255,255,255,.5);color:#fff}
+.item .btn-line:hover{background:#fff;color:var(--ink);border-color:#fff}
+.rates{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;margin:10px 0 16px;text-align:center}
+.rates div{padding:10px 4px;font-size:12px;color:#b8c6cd}
+.rates div+div{border-left:1px solid rgba(255,255,255,.14)}
+.rates b{display:block;font-size:17px;color:var(--yellow)}
+
+/* Reviews */
+.reviews{background:var(--card)}
+.rev-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:22px}
+.rev{border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:16px}
+.rev.feature{background:var(--ink);color:#fff;border:0;position:relative;overflow:hidden}
+.rev.feature::after{content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:var(--yellow);opacity:.12}
+.stars{color:#f5b400;letter-spacing:2px;font-size:16px}
+.rev q{font-size:18px;font-weight:600;line-height:1.4;quotes:"“" "”"}
+.rev.feature q{font-size:24px}
+.rev .who{font-size:13px;color:var(--muted);margin-top:auto}
+.rev.feature .who{color:#9fb1ba}
+.rev .src{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.dot{width:8px;height:8px;border-radius:50%;background:#34e0a1;display:inline-block}
+
+/* Service band */
+.band{background:var(--ink);color:#fff;padding:0;position:relative;overflow:hidden}
+.band .bg{position:absolute;inset:0 0 0 46%;background:url(img/service-klr.jpg) 40% 60%/cover no-repeat}
+.band .bg::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(11,27,35,.6) 25%,rgba(11,27,35,0) 60%)}
+.band .wrap{position:relative;padding-top:96px;padding-bottom:96px}
+.band h2{font-size:clamp(40px,5.4vw,68px)}
+.band p{font-size:19px;color:#dfe7eb;max-width:32ch;margin:20px 0 28px}
+.band .list{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;max-width:520px}
+.band .list span{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+
+/* Help row */
+.help{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:22px}
+.help > div{background:var(--card);border-radius:var(--r);border:1px solid var(--line);padding:30px}
+.help h3{font-family:var(--sans);text-transform:none;font-weight:900;font-size:30px;letter-spacing:-.02em;line-height:1.1}
+.help .chat{background:var(--yellow);border:0}
+.help .chat p{margin:10px 0 24px;font-size:17px}
+.help .promo{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.help .promo img{aspect-ratio:16/8;object-fit:cover}
+.help .promo .b{padding:20px 24px 24px}
+.help .promo h4{font-family:var(--display);text-transform:uppercase;font-size:20px}
+.help .promo p{color:var(--muted);font-size:14px;margin:4px 0 16px}
+.faq details{border-top:1px solid var(--line);padding:12px 0}
+.faq details:first-of-type{border-top:0;padding-top:0}
+.faq summary{font-weight:800;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.faq summary::after{content:"+";font-weight:900}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* Visit */
+.visit{display:grid;grid-template-columns:1fr 1.2fr;gap:22px;align-items:stretch}
+.visit .info{background:var(--card);border-radius:var(--r);border:1px solid var(--line);padding:32px}
+.visit dl{display:grid;grid-template-columns:110px 1fr;gap:14px 16px;margin-top:20px}
+.visit dt{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.visit dd{font-weight:600;min-width:0;overflow-wrap:anywhere}
+.visit > *{min-width:0}
+@media (max-width:560px){.visit dl{grid-template-columns:1fr;gap:4px}.visit dd{margin-bottom:10px}}
+.shopimg{border-radius:var(--r);min-height:320px;position:relative;overflow:hidden;border:1px solid var(--line)}
+.shopimg img,.shopimg iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.shopimg .maplink{position:absolute;left:16px;bottom:16px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;padding:8px 12px;border-radius:6px}
+.shopimg .maplink:hover{background:#000}
+.shopimg span{position:absolute;left:16px;bottom:16px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;padding:7px 12px;border-radius:6px}
+.ph{aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#132a34 0 14px,#16303b 14px 28px);display:grid;place-items:center;text-align:center;color:#b8c6cd;font-size:13px;font-weight:700;padding:16px}
+.ph b{display:block;font-family:var(--display);font-size:18px;color:#fff;text-transform:uppercase}
+.credits{font-size:11px;opacity:.6;margin-top:10px}
+.map{border-radius:var(--r);min-height:320px;background:
+  radial-gradient(circle at 46% 52%,var(--yellow) 0 9px,transparent 10px),
+  radial-gradient(circle at 46% 52%,rgba(255,225,0,.25) 0 34px,transparent 35px),
+  linear-gradient(135deg,#cfe9f3,#b6dcea);position:relative;overflow:hidden;border:1px solid var(--line)}
+.map::before{content:"";position:absolute;left:18%;top:8%;width:46%;height:84%;background:#e9e2cf;border-radius:48% 40% 52% 44%/30% 40% 60% 70%;transform:rotate(-18deg)}
+.map span{position:absolute;left:46%;top:52%;transform:translate(-50%,-150%);background:var(--ink);color:#fff;font-size:12px;font-weight:800;padding:6px 10px;border-radius:6px;white-space:nowrap;z-index:2}
+
+/* Footer */
+footer{background:var(--ink);color:#c9d4d9;padding:56px 0 30px}
+footer{position:relative;overflow:hidden}
+footer .wrap{position:relative;z-index:1}
+.tracks{position:absolute;top:0;height:100%;width:auto;opacity:.1;pointer-events:none}
+.tracks.l{left:0}
+.tracks.r{right:0}
+@media (max-width:560px){.tracks{opacity:.07}.tracks.l{left:-60px}.tracks.r{right:-90px}}
+
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px}
+footer h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+footer ul{list-style:none;display:grid;gap:6px}
+footer a:hover{color:#fff}
+footer .contact{display:grid;gap:10px;margin-top:22px}
+footer .bottom{border-top:1px solid rgba(255,255,255,.08);margin-top:40px;padding-top:20px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.btn-wa-line{border:2px solid var(--yellow);color:var(--yellow);padding:10px 16px;font-size:13px;margin-top:14px}
+
+/* Floating WA */
+.fab{position:fixed;right:20px;bottom:20px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.fab svg{width:30px;height:30px;color:#fff}
+
+/* Demo audit notes */
+.demo-bar{position:fixed;left:20px;bottom:20px;z-index:60;background:#fff;border:1px solid var(--line);border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.15);display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;font-size:13px;font-weight:700}
+.switch{width:44px;height:26px;border-radius:999px;background:#cfd6da;border:0;position:relative;cursor:pointer;transition:background .2s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.switch[aria-pressed=true]{background:#ff4d6d}
+.switch[aria-pressed=true]::after{left:21px}
+.note{display:none;position:absolute;z-index:20;max-width:270px;background:#ff4d6d;color:#fff;font-size:12.5px;font-weight:600;line-height:1.4;padding:10px 12px 10px 38px;border-radius:10px;box-shadow:0 10px 24px rgba(255,77,109,.35);font-family:var(--sans);text-transform:none;letter-spacing:0}
+.note i{position:absolute;left:10px;top:9px;width:20px;height:20px;border-radius:50%;background:#fff;color:#ff4d6d;font-style:normal;font-weight:900;display:grid;place-items:center;font-size:12px}
+body.notes .note{display:block}
+.rel{position:relative}
+.verify{background:#fff3c4;color:#6b5400;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle;display:none}
+body.notes .verify{display:inline-block}
+
+/* Responsive */
+@media (max-width:960px){
+  .nav .wrap{grid-template-columns:auto 1fr auto}
+  .nav ul{display:none}
+  .nav .logo{grid-column:1}
+  .nav .right{grid-column:3}
+  .burger{display:block}
+  .nav.open ul{display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:var(--ink);padding:20px 24px;gap:18px}
+  .hero .bg{inset:0;opacity:.55}
+  .hero .bg::before{background:linear-gradient(180deg,rgba(11,27,35,.4),var(--ink))}
+  .quick form{grid-template-columns:1fr 1fr}
+  .quick label:nth-child(2){border-right:0}
+  .quick label{border-bottom:1px solid var(--line)}
+  .quick .btn{grid-column:1/-1;padding:16px}
+  .trust{grid-template-columns:1fr 1fr}
+  .paths,.panel,.rev-grid,.help,.visit,footer .cols{grid-template-columns:1fr}
+  .band .bg{inset:0;opacity:.45}
+  .note{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;margin:10px 0;max-width:none}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .nav .right .wa-txt{display:none}
+  .hero .wrap{padding-top:64px}
+  .quick form{grid-template-columns:1fr}
+  .quick label{border-right:0}
+  section{padding:60px 0}
+  .demo-bar span{display:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></symbol>
+</svg>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <ul>
+      <li><a href="#rentals" class="on">Rentals</a></li>
+      <li><a href="#sales">Sales</a></li>
+    </ul>
+    <a href="#top" class="logo" aria-label="Bonaire Motorcycles home">
+      <img src="img/logo-lockup.png" alt="Bonaire Motorcycles" class="lockup">
+    </a>
+    <div class="right">
+      <ul>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#visit">Contact</a></li>
+      </ul>
+      <a class="btn btn-y" href="https://wa.me/5997861509" target="_blank" rel="noopener" style="padding:11px 16px"><svg class="wa-ico"><use href="#wa"/></svg><span class="wa-txt">WhatsApp</span></a>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top" style="padding:0">
+  <div class="bg" role="img" aria-label="Black scooter parked on a colourful Caribbean shopping street"></div>
+  <div class="wrap rel">
+    <p class="eyebrow">Scooters &amp; motorcycles on Bonaire</p>
+    <h1>Rent a scooter. Buy a motorcycle. Keep it running.</h1>
+    <p class="lead">Kymco scooters delivered to your resort, new and used motorbikes for sale, and a workshop that keeps island bikes on the road.</p>
+    <div class="ctas">
+      <a href="#rentals" class="btn btn-y arrow">View rentals</a>
+      <a href="#sales" class="btn btn-ghost arrow">See bikes for sale</a>
+    </div>
+    <div class="note" style="right:24px;top:40px"><i>!</i>Audit #1: their current listing image is a pastel flamingo illustration — no vehicle, no brand. The hero leads with a real Bonaire scene and all three services in one line. Swap in their own fleet photo once we have it.</div>
+  </div>
+</section>
+
+<!-- QUICK BOOK -->
+<div class="wrap quick rel">
+  <form id="qb" onsubmit="return book(event)">
+    <label>Vehicle
+      <select name="v">
+        <option>Kymco Agility 50cc scooter</option>
+        <option>125cc scooter</option>
+        <option>Long-term rental (1 month+)</option>
+      </select>
+    </label>
+    <label>Pick-up date<input type="date" name="d"></label>
+    <label>Days
+      <select name="n"><option>1–3</option><option selected>4–7</option><option>8–14</option><option>15–30</option><option>30+</option></select>
+    </label>
+    <button class="btn btn-y" type="submit"><svg class="wa-ico"><use href="#wa"/></svg>Check availability</button>
+  </form>
+  <div class="note" style="right:0;top:-70px"><i>!</i>Sales driver: one-tap booking request that opens WhatsApp with the dates pre-filled. No booking system needed on day one. Their own flyer confirms WhatsApp on 786-1509 (Bonaire.com’s button wrongly points to …1504).</div>
+
+  <div class="trust">
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg><p><b>Delivered to you</b><span>Brought to your resort &amp; collected</span></p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><p><b>Short or long term</b><span>A few days or a few months</span></p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5 2.5-2.5Z"/></svg><p><b>Own workshop</b><span>Maintained &amp; repaired in-house</span></p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7L12 3Z"/></svg><p><b>4.9 on Google</b><span>27 reviews · 5.0 on Tripadvisor</span></p></div>
+  </div>
+</div>
+
+<!-- PATHS -->
+<section id="paths">
+  <div class="wrap rel">
+    <div class="sec-head">
+      <h2>What do you need?</h2>
+      <p>Three ways we keep Bonaire moving. Pick yours.</p>
+    </div>
+    <div class="paths">
+      <article class="path" id="rentals">
+        <div class="img"><img src="img/bonaire-lake.jpg" style="--pos:50% 45%" alt="Turquoise bay with cacti on Bonaire"></div>
+        <div class="body">
+          <h3>Rent</h3>
+          <p>Kymco Agility scooters for exploring the island at your own pace. Short and long term, delivered to your door.</p>
+          <div class="price">$25 <small>per day · $150 per week</small></div>
+          <div class="links"><a class="link" href="#catalogue" onclick="tab('scooters')">View rentals</a></div>
+        </div>
+      </article>
+      <article class="path" id="sales">
+        <div class="img"><img src="img/service-klr.jpg" style="--pos:50% 60%" alt="Kawasaki KLR adventure motorcycle"></div>
+        <div class="body">
+          <h3>Buy</h3>
+          <p>New and used motorbikes and scooters, checked over in our own workshop before they leave.</p>
+          <div class="price">Just in <small>Yamaha TMAX 560 · $16,500</small></div>
+          <div class="links"><a class="link g" href="#catalogue" onclick="tab('motorcycles')">View motorcycles</a></div>
+        </div>
+      </article>
+      <article class="path">
+        <div class="img"><img src="img/real/workshop.jpg" alt="Mechanic at work"></div>
+        <div class="body">
+          <h3>Service</h3>
+          <p>Repairs, maintenance, parts and tyres for scooters and motorcycles.</p>
+          <div class="price">Quote <small>message us your issue</small></div>
+          <div class="links"><a class="link" href="#service">Book service</a><a class="link g" href="#catalogue" onclick="tab('service')">Parts</a></div>
+        </div>
+      </article>
+    </div>
+    <div class="note" style="right:24px;top:-74px"><i>!</i>Audit #2: Instagram, Tripadvisor and Bonaire.com each describe the business differently. One clear Rent / Buy / Service split fixes it.</div>
+  </div>
+</section>
+
+<!-- CATALOGUE -->
+<section id="catalogue" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Rentals &amp; sales</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-t="scooters">Scooters</button>
+        <button role="tab" aria-selected="false" data-t="motorcycles">Motorcycles</button>
+        <button role="tab" aria-selected="false" data-t="service">Service &amp; parts</button>
+      </div>
+    </div>
+
+    <div class="panel on" data-p="scooters">
+      <div class="item">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="46" r="7"/><circle cx="50" cy="46" r="7"/><path d="M23 46h17l7-15"/><path d="M47 31l-5-16h-6"/><path d="M38 15h6"/><path d="M9 39c2-4 6-6 11-6h12l3 13"/><path d="M14 33v-4h16"/></svg></div>
+        <div class="body">
+          <span class="tag">Most popular</span>
+          <h4>Kymco Agility 50cc</h4>
+          <div class="rates"><div><b>$25</b>per day</div><div><b>$150</b>per week</div><div><b>$400</b>per month</div></div>
+          <ul><li>Helmet, lock &amp; third-party insurance included</li><li>Delivered to your accommodation</li><li>Clear walk-through at hand-over</li><li>Kept in shape by our own workshop</li></ul>
+          <a class="btn btn-line arrow" href="#qb">Check availability</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(6 0)"><circle cx="16" cy="46" r="7"/><circle cx="50" cy="46" r="7"/><path d="M23 46h17l7-15"/><path d="M47 31l-5-16h-6"/><path d="M38 15h6"/><path d="M9 39c2-4 6-6 11-6h12l3 13"/><path d="M14 33v-4h16"/></g><path d="M2 22h12M4 28h9M6 34h5"/></svg></div>
+        <div class="body">
+          <span class="tag">More power</span>
+          <h4>125cc scooter</h4>
+          <div class="amt">Ask <small>for rates</small></div>
+          <ul><li>Two-up riding with more ease</li><li>Good for longer island trips</li><li>Availability on request</li></ul>
+          <a class="btn btn-line arrow" href="#qb">Check availability</a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ico" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="44" height="40" rx="5"/><path d="M10 25h44M22 8v10M42 8v10"/><path d="M23 39l6 6 12-12"/></svg></div>
+        <div class="body">
+          <span class="tag g">Long term</span>
+          <h4>Monthly rental</h4>
+          <div class="amt">$300 <small>per month from 3 months</small></div>
+          <div class="rates"><div><b>$400</b>1 month</div><div><b>$350</b>2 months</div><div><b>$300</b>3+ months</div></div>
+          <ul><li>For residents, interns &amp; long stays</li><li>Same local service, all season</li><li>Workshop on the island if anything comes up</li></ul>
+          <a class="btn btn-line arrow" href="https://wa.me/5997861509?text=Hi!%20I'm%20interested%20in%20a%20long-term%20rental." target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" data-p="motorcycles">
+      <div class="item">
+        <div class="ph"><div><b>Photo of this bike</b>Real photos from the owner go here</div></div>
+        <div class="body">
+          <span class="tag g">Just listed</span>
+          <h4>Yamaha TMAX 560 Anniversary Edition</h4>
+          <div class="amt">$16,500</div>
+          <ul><li>Maxi-scooter, 560cc</li><li>Year / km: <em>ask</em></li><li>Checked in our workshop</li></ul>
+          <a class="btn btn-line arrow" href="https://wa.me/5997861509?text=Hi!%20Is%20the%20Yamaha%20TMAX%20560%20still%20available%3F" target="_blank" rel="noopener">Ask about this bike</a>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/bonaire-cactus-road.jpg" style="--pos:50% 75%" alt="Dirt road through cactus fields on Bonaire">
+        <div class="body">
+          <span class="tag">New &amp; used</span>
+          <h4>More motorbikes</h4>
+          <div class="amt">Ask</div>
+          <ul><li>New and second-hand stock</li><li>Same spec layout for every bike</li><li>Real photos, multiple angles</li></ul>
+          <a class="btn btn-line arrow" href="https://wa.me/5997861509?text=Hi!%20Which%20motorbikes%20do%20you%20have%20for%20sale%3F" target="_blank" rel="noopener">Ask for current stock</a>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/bonaire-cliff-coast.jpg" alt="Limestone cliffs and turquoise sea on Bonaire">
+        <div class="body">
+          <span class="tag">For residents</span>
+          <h4>Scooters for sale</h4>
+          <div class="amt">Ask</div>
+          <ul><li>New and used scooters</li><li>Serviced before sale</li><li>Parts &amp; repairs from the same shop</li></ul>
+          <a class="btn btn-line arrow" href="https://wa.me/5997861509?text=Hi!%20Do%20you%20have%20scooters%20for%20sale%3F" target="_blank" rel="noopener">Ask for stock</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" data-p="service">
+      <div class="item">
+        <img src="img/real/workshop.jpg" alt="Workshop repair">
+        <div class="body">
+          <span class="tag">Workshop</span>
+          <h4>Repairs &amp; maintenance</h4>
+          <div class="amt">Quote</div>
+          <ul><li>Scooters &amp; motorcycles</li><li>Maintenance &amp; repairs</li><li>Message a photo of the problem</li></ul>
+          <a class="btn btn-line arrow" href="#service">Request service</a>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/real/workshop-wide.jpg" style="--pos:40% 70%" alt="Motorcycle parts and tools">
+        <div class="body">
+          <span class="tag g">Parts</span>
+          <h4>Parts</h4>
+          <div class="amt">Ask</div>
+          <ul><li>Scooter &amp; motorcycle parts</li><li>New and used</li><li>Fitted in our workshop</li></ul>
+          <a class="btn btn-line arrow" href="https://wa.me/5997861509?text=Hi!%20I'm%20looking%20for%20a%20part%3A%20" target="_blank" rel="noopener">Find a part</a>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/real/parts.jpg" style="--pos:50% 45%" alt="Stack of motorcycle tyres">
+        <div class="body">
+          <span class="tag">Tyres</span>
+          <h4>Tyres fitted</h4>
+          <div class="amt">Ask</div>
+          <ul><li>Scooter &amp; motorcycle tyres</li><li>Sold and fitted</li><li>Ask what is in stock</li></ul>
+          <a class="btn btn-line arrow" href="#service">Book tyre fitting</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="wrap rel">
+    <div class="sec-head">
+      <h2>Riders say</h2>
+      <p><b>4.9★</b> Google (27) · <b>5.0★</b> Tripadvisor (3) · <b>100%</b> recommend on Facebook (5)</p>
+    </div>
+    <div class="rev-grid">
+      <div class="rev feature">
+        <span class="stars">★★★★★</span>
+        <q>The best! Friendly and extremely helpful!</q>
+        <p class="who">Martijn de Brouwer · <span class="src"><span class="dot" style="background:#4285f4"></span>Google</span></p>
+      </div>
+      <div class="rev">
+        <span class="stars">★★★★★</span>
+        <p style="font-size:17px;font-weight:600">Scooter delivered to the resort, with everything clearly explained at hand-over.</p>
+        <p class="who">Summary of Marjolein V.’s review, Oct 2025 · <span class="src"><span class="dot"></span>Tripadvisor</span></p>
+      </div>
+      <div class="rev">
+        <span class="stars">★★★★★</span>
+        <p style="font-size:17px;font-weight:600">Rents here every holiday — the scooters are always well maintained.</p>
+        <p class="who">Summary of a Tripadvisor review, Oct 2025 · <span class="src"><span class="dot"></span>Tripadvisor</span></p>
+      </div>
+    </div>
+    <div class="note" style="right:24px;top:-74px"><i>!</i>Audit #3: reviews praise resort delivery, clear explanations and repeat rentals. Live count is 27 on Google (Bonaire.com text still says 26). One review shown there names another company — leave it out.</div>
+  </div>
+</section>
+
+<!-- SERVICE BAND -->
+<section class="band" id="service">
+  <div class="bg" role="img" aria-label="Kawasaki KLR adventure motorcycle"></div>
+  <div class="wrap">
+    <h2>Keep your<br>ride ready</h2>
+    <p>Repairs, parts and tyres for scooters and motorcycles on Bonaire.</p>
+    <div class="list"><span>Maintenance</span><span>Repairs</span><span>Tyres</span><span>Parts</span><span>New &amp; used sales</span></div>
+    <a class="btn btn-y" href="https://wa.me/5997861509?text=Hi!%20I'd%20like%20to%20book%20a%20service%20for%20my%20" target="_blank" rel="noopener"><svg class="wa-ico"><use href="#wa"/></svg>Book service</a>
+  </div>
+</section>
+
+<!-- HELP -->
+<section>
+  <div class="wrap">
+    <div class="help">
+      <div class="chat">
+        <h3>Need help choosing?</h3>
+        <p>Tell us your dates and where you're staying, and we'll suggest the right scooter.</p>
+        <a class="btn" style="background:var(--ink);color:#fff" href="https://wa.me/5997861509" target="_blank" rel="noopener"><svg class="wa-ico"><use href="#wa"/></svg>Message us</a>
+      </div>
+      <div class="promo">
+        <img src="img/bonaire-sunset-pier.jpg" alt="Sunset over a pier with palapas on Bonaire" style="object-position:50% 55%">
+        <div class="b">
+          <h4>Short or long term</h4>
+          <p>Rent for your holiday or for months at a time.</p>
+          <a class="link" href="#catalogue" onclick="tab('scooters')">View prices</a>
+        </div>
+      </div>
+      <div class="faq">
+        <h3 style="font-size:22px;margin-bottom:14px">Quick answers</h3>
+        <details open><summary>Do I need a licence?</summary><p>A valid driver's licence is required. <em class="verify">confirm rules</em></p></details>
+        <details><summary>Can you deliver?</summary><p>Yes, we bring the scooter to your accommodation and collect it again.</p></details>
+        <details><summary>What if something breaks?</summary><p>Call us. We explain what to do at hand-over, and our workshop is on the island.</p></details>
+        <details><summary>Deposit?</summary><p>Ask us. Details at hand-over. <em class="verify">add amount</em></p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" style="padding-top:0">
+  <div class="wrap visit rel">
+    <div class="info">
+      <h2 style="font-size:40px">Visit the shop</h2>
+      <dl>
+        <dt>Address</dt><dd>Kaya Platina 41, Kralendijk</dd>
+        <dt>Hours</dt><dd>Mon–Fri · 09:00–17:00 <em class="verify">TA says 08:00–16:00</em><br>Sat–Sun · closed</dd>
+        <dt>Phone</dt><dd><a href="tel:+5997861509">+599 786-1509</a></dd>
+        <dt>Email</dt><dd><a href="mailto:bonairemotorcycles@hotmail.com">bonairemotorcycles@hotmail.com</a></dd>
+      </dl>
+      <a class="btn btn-y" style="margin-top:26px" href="https://wa.me/5997861509" target="_blank" rel="noopener"><svg class="wa-ico"><use href="#wa"/></svg>WhatsApp us</a>
+    </div>
+    <div class="shopimg"><iframe title="Map: Bonaire Motorcycles, Kaya Platina 41, Kralendijk" src="https://maps.google.com/maps?q=Kaya+Platina+41,+Kralendijk,+Bonaire&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Bonaire+Motorcycles,+Kaya+Platina+41,+Kralendijk,+Bonaire" target="_blank" rel="noopener">📍 Kaya Platina 41 · Open in Google Maps</a></div>
+    <div class="note" style="right:24px;top:-64px"><i>!</i>Audit #4: address confirmed as Kaya Platina 41 (Facebook, Tripadvisor, Bonaire.com). Weekday hours still conflict between listings — confirm with the owner.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img class="tracks l" src="img/tread-left.png" alt="" aria-hidden="true">
+  <img class="tracks r" src="img/tread-right.png" alt="" aria-hidden="true">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a href="#top" class="logo" style="color:#fff">
+          <img src="img/logo-stack.png" alt="Bonaire Motorcycles" class="stack">
+        </a>
+        <p style="margin-top:14px;max-width:34ch">Your ride to adventure. Scooter rental, motorcycle sales and workshop on Bonaire.</p>
+        <div class="contact">
+          <a href="tel:+5997861509">☎ +599 786-1509</a>
+          <a href="mailto:bonairemotorcycles@hotmail.com">✉ bonairemotorcycles@hotmail.com</a>
+        </div>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul><li><a href="#rentals">Rentals</a></li><li><a href="#sales">Sales</a></li><li><a href="#service">Service</a></li><li><a href="#catalogue">Parts</a></li><li><a href="#visit">Contact</a></li></ul>
+      </div>
+      <div>
+        <h5>Follow us</h5>
+        <ul><li><a href="https://www.instagram.com/bonairemotorcycles/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/BonaireMotorcycles/" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://wa.me/5997861509" target="_blank" rel="noopener">WhatsApp</a></li></ul>
+        <a class="btn btn-wa-line" href="https://wa.me/5997861509" target="_blank" rel="noopener"><svg class="wa-ico"><use href="#wa"/></svg>Message us on WhatsApp</a>
+      </div>
+    </div>
+    <div class="bottom"><span>© 2026 Bonaire Motorcycles</span><span>Concept demo — not the live site</span></div>
+    <p class="credits">Photos via Wikimedia Commons: Shixart1985 (CC BY 2.0), Robert (CC BY 2.0).</p>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/5997861509" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#wa"/></svg></a>
+
+<div class="demo-bar"><span>Audit notes</span><button class="switch" aria-pressed="false" aria-label="Toggle audit notes" onclick="toggleNotes(this)"></button></div>
+
+<script>
+function tab(name){
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.p===name));
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.t)));
+
+function book(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const d=f.get('d')?new Date(f.get('d')).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'(date tbc)';
+  const msg=`Hi Bonaire Motorcycles! I'd like to rent: ${f.get('v')}, from ${d} for ${f.get('n')} days. Is it available?`;
+  window.open('https://wa.me/5997861509?text='+encodeURIComponent(msg),'_blank','noopener');
+  return false;
+}
+
+function toggleNotes(btn){
+  const on=document.body.classList.toggle('notes');
+  btn.setAttribute('aria-pressed',on);
+  try{localStorage.setItem('bm-notes',on?'1':'0')}catch(e){}
+}
+try{ if(localStorage.getItem('bm-notes')==='1'){document.body.classList.add('notes');document.querySelector('.switch').setAttribute('aria-pressed','true')} }catch(e){}
+
+// default the date picker to tomorrow
+(function(){const t=new Date();t.setDate(t.getDate()+1);document.querySelector('#qb input[type=date]').value=t.toISOString().slice(0,10)})();
+</script>
+</body>
+</html>
